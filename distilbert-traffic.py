@@ -4,7 +4,7 @@ from transformers import DistilBertTokenizer, DistilBertForSequenceClassificatio
 import torch
 
 # Load pre-trained DistilBERT model and tokenizer
-model_name = 'D:/Cybersecurity/streamlitapps/DistBert'
+model_name = "distilbert-base-uncased-finetuned-sst-2-english"
 tokenizer = DistilBertTokenizer.from_pretrained(model_name)
 model = DistilBertForSequenceClassification.from_pretrained(model_name)
 
