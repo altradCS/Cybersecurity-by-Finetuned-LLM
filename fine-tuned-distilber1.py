@@ -1,8 +1,3 @@
-
-
-#model_name = "distilbert-base-uncased-finetuned-sst-2-english"
-#model_name = 'D:/Cybersecurity/streamlitapps/DistBert'
-
 import streamlit as st
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 import torch
