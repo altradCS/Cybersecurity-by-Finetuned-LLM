@@ -1,9 +1,6 @@
 import streamlit as st
 from transformers import pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW
-from torch.utils.data import DataLoader, TensorDataset, random_split
-import torch
-import pandas as pd
-from tqdm import tqdm
+
 
 # Load pre-trained DistilBERT model and tokenizer for sentiment analysis
 model_name = "distilbert-base-uncased-finetuned-sst-2-english"
@@ -36,3 +33,4 @@ def display_sentiment_result(result):
 
 if __name__ == "__main__":
     main()
+
