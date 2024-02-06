@@ -34,16 +34,6 @@ def fine_tune_distilbert(dataset, num_epochs=3):
     train_dataloader = DataLoader(train_dataset, batch_size=8, shuffle=True)
     val_dataloader = DataLoader(val_dataset, batch_size=8, shuffle=False)
 
-    # Fine-tune the model
-    for epoch in range(num_epochs):
-        model_finetune.train()
-        for batch in tqdm(train_dataloader, desc=f"Epoch {epoch + 1}/{num_epochs}", leave=False):
-            optimizer.zero_grad()
-            input_ids, attention_mask, labels = batch
-            outputs = model_finetune(input_ids, attention_mask=attention_mask, labels=labels)
-            loss = outputs.loss
-            loss.backward()
-            optimizer.step()
 
         # Validation
         model_finetune.eval()
@@ -81,27 +71,7 @@ def main():
         else:
             st.warning("Please enter text for analysis.")
 
-    # Fine-tune the model with a custom dataset
-    st.subheader("Fine-tune DistilBERT Model with Custom Dataset")
-    uploaded_file = st.file_uploader("Upload a CSV file with 'prompt' and 'label' columns", type=["csv"])
-    if uploaded_file:
-        st.info("Fine-tuning in progress...")
-        dataset = pd.read_csv(uploaded_file)
-        fine_tuned_model = fine_tune_distilbert(dataset)
-        st.success("Fine-tuning completed!")
-
-    # Augmented generation using fine-tuned model
-    st.subheader("Augmented Generation with Fine-tuned Model")
-    prompt = st.text_area("Enter a prompt for text generation:", "")
-    if st.button("Generate"):
-        if prompt and 'fine_tuned_model' in locals():
-            generated_text = generate_text(prompt, fine_tuned_model)
-            st.success("Generated Text:")
-            st.write(generated_text)
-        elif not prompt:
-            st.warning("Please enter a prompt.")
-        else:
-            st.warning("Please fine-tune the model first.")
+   
 
 def analyze_text_sentiment(text):
     classifier = pipeline("sentiment-analysis", model=model_sentiment, tokenizer=tokenizer_sentiment)
@@ -111,14 +81,6 @@ def analyze_text_sentiment(text):
 def display_sentiment_result(result):
     st.subheader("Sentiment Analysis Result:")
     st.write(f"Sentiment: {result[0]['label']} with confidence {result[0]['score']:.4f}")
-
-def generate_text(prompt, model):
-    inputs = tokenizer_finetune(prompt, return_tensors="pt", truncation=True)
-    with torch.no_grad():
-        outputs = model(**inputs)
-    generated_ids = torch.argmax(outputs.logits, dim=2)
-    generated_text = tokenizer_finetune.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    return generated_text
 
 if __name__ == "__main__":
     main()
