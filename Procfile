@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run finetunedllmcybersec.py
+web: sh setup.sh && streamlit run bothfeatures.py
