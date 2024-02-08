@@ -59,7 +59,7 @@ def main():
     # Text analysis for cybersecurity forensics
     #st.subheader("Text Analysis for Cybersecurity Forensics")
     text2 = st.text_area("Enter text for analysis :", "")
-    if st.button("Analyze"):
+    if st.button("Evaluate"):
         if text2:
             sentiment_result = analyze_text_sentiment(text2)
             display_sentiment_result(sentiment_result)
