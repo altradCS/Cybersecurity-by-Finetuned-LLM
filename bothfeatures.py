@@ -46,24 +46,22 @@ def main():
     st.title("Fraud Detection Web App")
 
     # User input for text
-    text = st.text_area("Enter text for analysis:", "")
+    text1 = st.text_area("Enter text for analysis:", "")
 
     if st.button("Analyze"):
-        if text:
+        if text1:
             # Analyze the text for fraudulent activities
-            fraud_detection_result = analyze_text(text)
-            display_result(fraud_detection_result)
-        else:
+            fraud_detection_result = analyze_text(text1)
             st.warning("Please enter text for analysis.")
 
     st.title("Cybersecurity Forensics Webapp")
 
     # Text analysis for cybersecurity forensics
-    st.subheader("Text Analysis for Cybersecurity Forensics")
-    text = st.text_area("Enter text for analysis:", "")
+    #st.subheader("Text Analysis for Cybersecurity Forensics")
+    text2 = st.text_area("Enter text for analysis:", "")
     if st.button("Analyze"):
-        if text:
-            sentiment_result = analyze_text_sentiment(text)
+        if text2:
+            sentiment_result = analyze_text_sentiment(text2)
             display_sentiment_result(sentiment_result)
         else:
             st.warning("Please enter text for analysis.")
