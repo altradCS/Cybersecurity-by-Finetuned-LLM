@@ -55,7 +55,7 @@ def main():
         else:
             st.warning("Please enter text for analysis.")
 
-    st.write("Cybersecurity Forensics Webapp")
+ 
     # Text analysis for cybersecurity forensics
     #st.subheader("Text Analysis for Cybersecurity Forensics")
     text2 = st.text_area("Enter text for analysis :", "")
