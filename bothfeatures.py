@@ -1,5 +1,5 @@
 import streamlit as st
-from transformers import DistilBertTokenizer, pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW, AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline, DistilBertTokenizer, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW, AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import pandas as pd
 from sklearn.metrics import accuracy_score
@@ -9,7 +9,6 @@ nlptown = "nlptown/bert-base-multilingual-uncased-sentiment"
 tokenizer = AutoTokenizer.from_pretrained(nlptown)
 model_nlptown = AutoModelForSequenceClassification.from_pretrained(nlptown)
 sentiment_classifier = pipeline("sentiment-analysis", model=model_nlptown , tokenizer=tokenizer)
-
 
 # Load pre-trained DistilBERT model and tokenizer
 model_name = "distilbert-base-uncased-finetuned-sst-2-english"
@@ -82,7 +81,7 @@ def main():
     if st.button("Analyze Suspicious Text"):
         if text_suspicious:
             result_suspicious = sentiment_classifier(text_suspicious)
-            display_result("Suspicious Text Analysis Result", result_suspicious)
+            display_sentiment_result("Suspicious Text Analysis Result", result_suspicious)
         else:
             st.warning("Please enter text for analysis.")
 
@@ -92,7 +91,7 @@ def main():
     if st.button("Analyze Cybersecurity Text"):
         if text_cybersecurity:
             result_cybersecurity = sentiment_classifier(text_cybersecurity)
-            display_result("Cybersecurity Text Analysis Result", result_cybersecurity)
+            display_sentiment_result("Cybersecurity Text Analysis Result", result_cybersecurity)
         else:
             st.warning("Please enter text for analysis.")
 
@@ -103,13 +102,9 @@ def main():
     if st.button("Test Text After Fine-tuning"):
         if text_test and 'df_finetune' in locals():
             result_test = sentiment_classifier(text_test)
-            display_result("Test Text Analysis Result", result_test)
+            display_sentiment_result("Test Text Analysis Result", result_test)
         else:
             st.warning("Please fine-tune the model first and enter text for testing.")
-
-
-
-
 
 
 if __name__ == "__main__":
