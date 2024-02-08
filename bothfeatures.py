@@ -1,6 +1,15 @@
 import streamlit as st
-from transformers import DistilBertTokenizer, pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW
+from transformers import DistilBertTokenizer, pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW, AutoTokenizer, AutoModelForSequenceClassification
 import torch
+import pandas as pd
+from sklearn.metrics import accuracy_score
+
+# Load pre-trained sentiment analysis model
+nlptown = "nlptown/bert-base-multilingual-uncased-sentiment"
+tokenizer = AutoTokenizer.from_pretrained(nlptown)
+model_nlptown = AutoModelForSequenceClassification.from_pretrained(nlptown)
+sentiment_classifier = pipeline("sentiment-analysis", model=model_nlptown , tokenizer=tokenizer)
+
 
 # Load pre-trained DistilBERT model and tokenizer
 model_name = "distilbert-base-uncased-finetuned-sst-2-english"
@@ -65,6 +74,42 @@ def main():
             display_sentiment_result(sentiment_result)
         else:
             st.warning("Please enter text for analysis.")
+
+
+    # 1. Suspicious Text Analysis
+    st.subheader("1. Suspicious Text Analysis")
+    text_suspicious = st.text_area("Enter text for suspicious analysis:", "")
+    if st.button("Analyze Suspicious Text"):
+        if text_suspicious:
+            result_suspicious = sentiment_classifier(text_suspicious)
+            display_result("Suspicious Text Analysis Result", result_suspicious)
+        else:
+            st.warning("Please enter text for analysis.")
+
+    # 2. Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis
+    st.subheader("2. Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis")
+    text_cybersecurity = st.text_area("Enter text for cybersecurity analysis:", "")
+    if st.button("Analyze Cybersecurity Text"):
+        if text_cybersecurity:
+            result_cybersecurity = sentiment_classifier(text_cybersecurity)
+            display_result("Cybersecurity Text Analysis Result", result_cybersecurity)
+        else:
+            st.warning("Please enter text for analysis.")
+
+
+    # 5. Option to test normal and suspicious content after fine-tuning
+    st.subheader("5. Test Normal and Suspicious Content after Fine-tuning")
+    text_test = st.text_area("Enter text for testing:", "")
+    if st.button("Test Text After Fine-tuning"):
+        if text_test and 'df_finetune' in locals():
+            result_test = sentiment_classifier(text_test)
+            display_result("Test Text Analysis Result", result_test)
+        else:
+            st.warning("Please fine-tune the model first and enter text for testing.")
+
+
+
+
 
 
 if __name__ == "__main__":
