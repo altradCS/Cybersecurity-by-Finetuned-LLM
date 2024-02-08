@@ -7,6 +7,7 @@ model_name = "distilbert-base-uncased-finetuned-sst-2-english"
 tokenizer_sentiment = DistilBertTokenizer.from_pretrained(model_name)
 model_sentiment = DistilBertForSequenceClassification.from_pretrained(model_name)
 
+
 def analyze_text(text1):
     # Tokenize and process the input text
     inputs = tokenizer_sentiment(text1, return_tensors="pt", truncation=True)
@@ -24,7 +25,7 @@ def analyze_text(text1):
 def display_result(result1):
     st.subheader("Analysis Result:")
 
-    if result == 1:
+    if result1 == 1:
         st.error("Fraudulent activity detected!")
     else:
         st.success("No fraudulent activity detected.")
@@ -32,13 +33,13 @@ def display_result(result1):
 
 def analyze_text_sentiment(text2):
     classifier = pipeline("sentiment-analysis", model=model_sentiment, tokenizer=tokenizer_sentiment)
-    result = classifier(text)
+    result = classifier(text2)
     return result
 
 
 def display_sentiment_result(result2):
     st.subheader("Sentiment Analysis Result:")
-    st.write(f"Sentiment: {result[0]['label']} with confidence {result[0]['score']:.4f}")
+    st.write(f"Sentiment: {result2[0]['label']} with confidence {result2[0]['score']:.4f}")
 
 
 # Streamlit app
@@ -49,15 +50,14 @@ def main():
 
     if st.button("Analyze with LLM-1"):
         if text1:
-            #analyze the text for fraudulent activities
+            # analyze the text for fraudulent activities
             fraud_detection_result = analyze_text(text1)
             display_result(fraud_detection_result)
         else:
             st.warning("Please enter text for analysis.")
 
- 
     # Text analysis for cybersecurity forensics
-    #st.subheader("Text Analysis for Cybersecurity Forensics")
+    # st.subheader("Text Analysis for Cybersecurity Forensics")
     text2 = st.text_area("Enter text for analysis :", "")
     if st.button("Analyze with LLM-2"):
         if text2:
