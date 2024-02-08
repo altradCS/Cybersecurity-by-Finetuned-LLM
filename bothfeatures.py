@@ -43,11 +43,11 @@ def display_sentiment_result(result2):
 
 # Streamlit app
 def main():
-    st.title("Fraud Detection Web App")
+    st.title("Sentiment Cybersecurity Forensics Webapp")
     # User input for text
     text1 = st.text_area("Enter your text for analysis:", "")
 
-    if st.button("Analyze"):
+    if st.button("Analyze with LLM-1"):
         if text1:
             #analyze the text for fraudulent activities
             fraud_detection_result = analyze_text(text1)
@@ -59,7 +59,7 @@ def main():
     # Text analysis for cybersecurity forensics
     #st.subheader("Text Analysis for Cybersecurity Forensics")
     text2 = st.text_area("Enter text for analysis :", "")
-    if st.button("Evaluate"):
+    if st.button("Analyze with LLM-2"):
         if text2:
             sentiment_result = analyze_text_sentiment(text2)
             display_sentiment_result(sentiment_result)
