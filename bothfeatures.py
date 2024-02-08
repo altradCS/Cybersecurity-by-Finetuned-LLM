@@ -44,18 +44,18 @@ def display_sentiment_result(result):
 # Streamlit app
 def main():
     st.title("Fraud Detection Web App")
-
     # User input for text
     text1 = st.text_area("Enter text for analysis:", "")
 
     if st.button("Analyze"):
         if text1:
-            # Analyze the text for fraudulent activities
+            #analyze the text for fraudulent activities
             fraud_detection_result = analyze_text(text1)
+            display_result(fraud_detection_result)
+        else:
             st.warning("Please enter text for analysis.")
 
-    st.title("Cybersecurity Forensics Webapp")
-
+    st.write("Cybersecurity Forensics Webapp")
     # Text analysis for cybersecurity forensics
     #st.subheader("Text Analysis for Cybersecurity Forensics")
     text2 = st.text_area("Enter text for analysis:", "")
