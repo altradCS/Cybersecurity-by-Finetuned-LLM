@@ -45,7 +45,7 @@ def display_sentiment_result(result2):
 def main():
     st.title("Fraud Detection Web App")
     # User input for text
-    text1 = st.text_area("Enter text for analysis:", "")
+    text1 = st.text_area("Enter your text for analysis:", "")
 
     if st.button("Analyze"):
         if text1:
