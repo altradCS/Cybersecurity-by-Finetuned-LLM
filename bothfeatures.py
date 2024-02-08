@@ -7,9 +7,9 @@ model_name = "distilbert-base-uncased-finetuned-sst-2-english"
 tokenizer_sentiment = DistilBertTokenizer.from_pretrained(model_name)
 model_sentiment = DistilBertForSequenceClassification.from_pretrained(model_name)
 
-def analyze_text(text):
+def analyze_text(text1):
     # Tokenize and process the input text
-    inputs = tokenizer_sentiment(text, return_tensors="pt", truncation=True)
+    inputs = tokenizer_sentiment(text1, return_tensors="pt", truncation=True)
 
     # Get the model's prediction
     with torch.no_grad():
@@ -21,7 +21,7 @@ def analyze_text(text):
     return prediction
 
 
-def display_result(result):
+def display_result(result1):
     st.subheader("Analysis Result:")
 
     if result == 1:
@@ -30,13 +30,13 @@ def display_result(result):
         st.success("No fraudulent activity detected.")
 
 
-def analyze_text_sentiment(text):
+def analyze_text_sentiment(text2):
     classifier = pipeline("sentiment-analysis", model=model_sentiment, tokenizer=tokenizer_sentiment)
     result = classifier(text)
     return result
 
 
-def display_sentiment_result(result):
+def display_sentiment_result(result2):
     st.subheader("Sentiment Analysis Result:")
     st.write(f"Sentiment: {result[0]['label']} with confidence {result[0]['score']:.4f}")
 
