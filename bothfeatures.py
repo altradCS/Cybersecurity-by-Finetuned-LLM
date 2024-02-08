@@ -1,20 +1,19 @@
 import streamlit as st
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import DistilBertTokenizer, pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW
 import torch
-from transformers import pipeline, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW
 
 # Load pre-trained DistilBERT model and tokenizer
-model_name1 = "distilbert-base-uncased-finetuned-sst-2-english"
-tokenizer = DistilBertTokenizer.from_pretrained(model_name1)
-model = DistilBertForSequenceClassification.from_pretrained(model_name1)
+model_name = "distilbert-base-uncased-finetuned-sst-2-english"
+tokenizer_sentiment = DistilBertTokenizer.from_pretrained(model_name)
+model_sentiment = DistilBertForSequenceClassification.from_pretrained(model_name)
 
 def analyze_text(text):
     # Tokenize and process the input text
-    inputs = tokenizer(text, return_tensors="pt", truncation=True)
+    inputs = tokenizer_sentiment(text, return_tensors="pt", truncation=True)
 
     # Get the model's prediction
     with torch.no_grad():
-        outputs = model(**inputs)
+        outputs = model_sentiment(**inputs)
 
     # Interpret the model's output for fraud detection
     prediction = torch.argmax(outputs.logits, dim=1).item()
@@ -31,20 +30,11 @@ def display_result(result):
         st.success("No fraudulent activity detected.")
 
 
-
-################################
-
-
-# Load pre-trained DistilBERT model and tokenizer for sentiment analysis
-model_name = "distilbert-base-uncased-finetuned-sst-2-english"
-tokenizer_sentiment = DistilBertTokenizer.from_pretrained(model_name)
-model_sentiment = DistilBertForSequenceClassification.from_pretrained(model_name)
-  
-
 def analyze_text_sentiment(text):
     classifier = pipeline("sentiment-analysis", model=model_sentiment, tokenizer=tokenizer_sentiment)
     result = classifier(text)
     return result
+
 
 def display_sentiment_result(result):
     st.subheader("Sentiment Analysis Result:")
@@ -77,6 +67,7 @@ def main():
             display_sentiment_result(sentiment_result)
         else:
             st.warning("Please enter text for analysis.")
+
 
 if __name__ == "__main__":
     main()
