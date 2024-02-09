@@ -67,7 +67,7 @@ def main():
     # Text analysis for cybersecurity forensics
     st.subheader("Analyze Suspicious Dara via Finetuned LLM")
     text2 = st.text_area("Enter text for analysis :", "")
-    if st.button("Analyze"):
+    if st.button("Test Data"):
         if text2:
             sentiment_result = analyze_text_sentiment(text2)
             display_sentiment_result(sentiment_result)
@@ -78,7 +78,7 @@ def main():
     # 1. Suspicious Text Analysis using NLPTOWN Modle
     st.subheader("Test Fraudulent, Spam, Harm, Viruses, Malware, Ransomware data using Finetuned LLM Model-2 ")
     text_suspicious = st.text_area("Enter text for suspicious analysis:", "")
-    if st.button("Analyze"):
+    if st.button("Evaluate"):
         if text_suspicious:
             result_suspicious = sentiment_classifier(text_suspicious)
             display_sentiment_result("Suspicious Text Analysis Result", result_suspicious)
