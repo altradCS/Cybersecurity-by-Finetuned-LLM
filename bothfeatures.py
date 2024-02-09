@@ -51,11 +51,12 @@ def display_sentiment_result(result2):
 
 # Streamlit app
 def main():
-    st.title("Sentiment Cybersecurity Forensics Webapp")
+    st.title("Cybersecurity Forensics Webapp")
     # User input for text
+    st.subheader("Analyze Suspicious Text via Normal Distilbert LLM Model")
     text1 = st.text_area("Enter your text for analysis:", "")
 
-    if st.button("Analyze with LLM-1"):
+    if st.button("Analyze with LLM "):
         if text1:
             # analyze the text for fraudulent activities
             fraud_detection_result = analyze_text(text1)
@@ -64,7 +65,7 @@ def main():
             st.warning("Please enter text for analysis.")
 
     # Text analysis for cybersecurity forensics
-    # st.subheader("Text Analysis for Cybersecurity Forensics")
+    st.subheader("Analyze Suspicious Text via Finetuned Distilbert LLM Model")
     text2 = st.text_area("Enter text for analysis :", "")
     if st.button("Analyze with LLM-2"):
         if text2:
@@ -74,8 +75,8 @@ def main():
             st.warning("Please enter text for analysis.")
 
 
-    # 1. Suspicious Text Analysis
-    st.subheader("1. Suspicious Text Analysis")
+    # 1. Suspicious Text Analysis using NLPTOWN Modle
+    st.subheader("Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis using Finetuned NLPTown LLM Model ")
     text_suspicious = st.text_area("Enter text for suspicious analysis:", "")
     if st.button("Analyze Suspicious Text"):
         if text_suspicious:
@@ -83,27 +84,6 @@ def main():
             display_sentiment_result("Suspicious Text Analysis Result", result_suspicious)
         else:
             st.warning("Please enter text for analysis.")
-
-    # 2. Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis
-    st.subheader("2. Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis")
-    text_cybersecurity = st.text_area("Enter text for cybersecurity analysis:", "")
-    if st.button("Analyze Cybersecurity Text"):
-        if text_cybersecurity:
-            result_cybersecurity = sentiment_classifier(text_cybersecurity)
-            display_sentiment_result("Cybersecurity Text Analysis Result", result_cybersecurity)
-        else:
-            st.warning("Please enter text for analysis.")
-
-
-    # 5. Option to test normal and suspicious content after fine-tuning
-    st.subheader("5. Test Normal and Suspicious Content after Fine-tuning")
-    text_test = st.text_area("Enter text for testing:", "")
-    if st.button("Test Text After Fine-tuning"):
-        if text_test and 'df_finetune' in locals():
-            result_test = sentiment_classifier(text_test)
-            display_sentiment_result("Test Text Analysis Result", result_test)
-        else:
-            st.warning("Please fine-tune the model first and enter text for testing.")
 
 
 if __name__ == "__main__":
