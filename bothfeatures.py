@@ -1,7 +1,7 @@
 import streamlit as st
 from transformers import pipeline, DistilBertTokenizer, DistilBertTokenizer, DistilBertForSequenceClassification, AdamW, AutoTokenizer, AutoModelForSequenceClassification
 import torch
-import pandas as pd
+#import pandas as pd
 
 # Load pre-trained sentiment analysis model
 nlptown = "nlptown/bert-base-multilingual-uncased-sentiment"
