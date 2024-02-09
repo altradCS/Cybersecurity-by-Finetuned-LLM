@@ -51,7 +51,7 @@ def display_sentiment_result(result2):
 
 # Streamlit app
 def main():
-    st.title("Cybersecurity Forensic-Pentest Web Application")
+    st.title("Cybersecurity Pentest Web Application\n")
     # User input for text
     st.subheader("Analyze Suspicious Data via LLM")
     text1 = st.text_area("Enter your text for analysis:", "")
@@ -81,7 +81,7 @@ def main():
     if st.button("Evaluate"):
         if text_suspicious:
             result_suspicious = sentiment_classifier(text_suspicious)
-            display_sentiment_result("Suspicious Text Analysis Result", result_suspicious)
+            display_sentiment_result(result_suspicious)
         else:
             st.warning("Please enter text for analysis.")
 
