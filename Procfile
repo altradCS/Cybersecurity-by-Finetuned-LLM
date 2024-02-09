@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run bothfeatures.py
+web: sh setup.sh && streamlit run cyberpentestradiobutton.py
