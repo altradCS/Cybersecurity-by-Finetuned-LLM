@@ -51,12 +51,12 @@ def display_sentiment_result(result2):
 
 # Streamlit app
 def main():
-    st.title("Cybersecurity Forensics Webapp")
+    st.title("Cybersecurity Forensic-Pentest Web Application")
     # User input for text
-    st.subheader("Analyze Suspicious Text via Normal Distilbert LLM Model")
+    st.subheader("Analyze Suspicious Data via LLM")
     text1 = st.text_area("Enter your text for analysis:", "")
 
-    if st.button("Analyze with LLM "):
+    if st.button("Analyze"):
         if text1:
             # analyze the text for fraudulent activities
             fraud_detection_result = analyze_text(text1)
@@ -65,9 +65,9 @@ def main():
             st.warning("Please enter text for analysis.")
 
     # Text analysis for cybersecurity forensics
-    st.subheader("Analyze Suspicious Text via Finetuned Distilbert LLM Model")
+    st.subheader("Analyze Suspicious Dara via Finetuned LLM")
     text2 = st.text_area("Enter text for analysis :", "")
-    if st.button("Analyze with LLM-2"):
+    if st.button("Analyze"):
         if text2:
             sentiment_result = analyze_text_sentiment(text2)
             display_sentiment_result(sentiment_result)
@@ -76,9 +76,9 @@ def main():
 
 
     # 1. Suspicious Text Analysis using NLPTOWN Modle
-    st.subheader("Fraudulent, Spam, Harm, Viruses, Malware, Ransomware Analysis using Finetuned NLPTown LLM Model ")
+    st.subheader("Test Fraudulent, Spam, Harm, Viruses, Malware, Ransomware data using Finetuned LLM Model-2 ")
     text_suspicious = st.text_area("Enter text for suspicious analysis:", "")
-    if st.button("Analyze Suspicious Text"):
+    if st.button("Analyze"):
         if text_suspicious:
             result_suspicious = sentiment_classifier(text_suspicious)
             display_sentiment_result("Suspicious Text Analysis Result", result_suspicious)
